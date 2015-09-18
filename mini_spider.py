@@ -7,12 +7,17 @@ import threading
 import logging
 import Queue
 import urllib2
+from objects import Url
 from tools import check_config
+
+url_queue = list()
+exist_url_queue = set()
 
 class SpiderManager(object):
 	def __init__(self, thread_num = 4):
 		self.work_queue = Queue.queue()
 		self.threads = []
+		self.
 	
 	def __init_thread_pool(self, thread_num):
 		for i in range(thread_num):

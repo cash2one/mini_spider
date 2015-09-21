@@ -1,6 +1,6 @@
 #coding=utf8
 import os,sys
-import re
+import re, chardet
 import ConfigParser
 import logging
 
@@ -67,3 +67,13 @@ def check_config(args):
 
 	return config
 
+def convert_charset(html):
+	charset = chardet.detect(html)['encoding']
+	print charset
+	if charset == 'utf-8':
+		return html
+	elif charset.startswith('GB') or charset.startswith('gb'):
+		_html = html.decode('gbk')
+		_html = _html.encode('utf-8')
+		return _html
+		

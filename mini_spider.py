@@ -8,7 +8,11 @@ import logging
 import Queue
 import urllib2
 from objects import Url
-from utils import check_config
+from utils import check_config, convert_charset
+
+url_queue = Queue.Queue()
+exist_url_set = set()
+failed_url_set = set()
 
 class SpiderManager(object):
 	def __init__(self, thread_num = 4, configs=None):
@@ -17,73 +21,48 @@ class SpiderManager(object):
 
 	def __init_thread_pool(self, thread_num):
 		for i in range(thread_num):
-			self.threads.append(SpiderThread())
+			self.threads.append(SpiderThread(i, job_queue, configs))
 	
-	def add_job(self):
-		pass
+	def wait_all_complete(self):
+		for spider in self.threads:
+			if spider.isAlive():
+				spider.join()
 
 class SpiderThread(threading.Thread):
-	def __init__(self, work_queue):
-		super(Thread,self).__init__()	#调用父类的构造函数
-		self._queue = work_queue
-	def run(self):
-		pass
-
-class Spider(object):
-	'''
-	Main spider process
-	'''
-	def __init__(self, url, configs):
-		'''
+	"""
+	SpiderThread
+	"""
+	def __init__(self, thread_idx ,work_queue, configs):
+		"""
 		Initiate
-		@params[in] url: objects.Url
-		@params[in] timeout : int, timeout for getting page
-		'''
-		self.url = url
-		self.configs = configs
+		@param [in] thread_idx: index of thread
+		@param [in] work_queue: url queue for crawling, for synchronize
+		@param [in] configs: configuration, dict
+		"""
+		threading.Thread.__init__(self)	#call init func of Thread class
+		self._queue = work_queue
+		self.idx = thread_idx
+		self.start()	#Start thread
 
-	def crawl(self):
-		self.get_page()
-		self.parse_page()
-		self.save_page()
-		self.clean_up()
+	def run(self):
+		"""Rewrite run function"""
+		retry = 5
+		while retry:
+			try:
+				"""Doing job"""
+				logging.info("Thread %s getting job url from work_queue"%(self.idx))
+				url = self._queue.get(block=True, timeout=10)
 
-	def get_page(self):
-		'''
-		Get html file from Internet
-		'''
-		_timeout = self.configs['crawl_timeout']
+				"""Crawl page from website"""
+				
+				"""Notificate queue when job done"""
+				self._queue.task_done()
 
-		try:
-			self.page = urllib2.urlopen(self.url.url,timeout=_timeout).read()
-			global exist_url_set
-			exist_url_set.add(self.url)
-			logging.info("Get url:%s success."%(self.url.url))
-		except :
-			global failed_url_set
-			failed_url_set.add(self.url)
-			logging.info("Get url:%s failed."%(self.url.url))
-
-
-	def parse_page(self):
-		global exist_url_set
-		global failed_url_set
-		global url_queue
-
-		html_parser = HtmlParser(self.page,self.url.depth)
-		urls = html_parser.parse()		#List of Url object
-
-		for url in urls:
-			if not url in exist_url_set and not url in failed_url_set:
-				url_queue.put(url)
-
-	def save_page(self):
-		pass
-
-
-url_queue = Queue.Queue()
-exist_url_set = set()
-failed_url_set = set()
+			except:
+				sleep_time = 10
+				logging.info("Thread %s get job failed, retry times left: %s, sleep %s seconds and retry."%(self.idx, retry, sleep_time))
+				retry -= 1
+				time.sleep(sleep_time)
 
 def main(args):
 	configs = check_config(args)

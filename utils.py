@@ -69,11 +69,22 @@ def check_config(args):
 
 def convert_charset(html):
 	charset = chardet.detect(html)['encoding']
-	print charset
 	if charset == 'utf-8':
 		return html
 	elif charset.startswith('GB') or charset.startswith('gb'):
 		_html = html.decode('gbk')
 		_html = _html.encode('utf-8')
 		return _html
-		
+	else:
+		return html
+
+def url_to_filename(url):
+	_url = url.replace('%', '%25')
+	_url = _url.replace('/','%2F')
+	_url = _url.replace('+', '%2B')
+	_url = _url.replace('?', '%3F')
+	_url = _url.replace('#','%23')
+	_url = _url.replace('&', '%26')
+	_url = _url.replace('=', '%3D')
+	return _url
+

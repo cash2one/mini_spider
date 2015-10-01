@@ -46,25 +46,47 @@ class HtmlParser(object):
 		"""
 		url_queue = []
 		soup = BeautifulSoup(self.html,'html.parser')
+		
+		base_link = soup.find_all('base')
+		if base_link:
+			base_link = base_link[0].get('href')[0]
+			if base_link.startswith('http://'):
+				relative_root_url = base_link
+			else:
+				relative_root_url = '/'.join(self.url.url.split('/')[:-1])+ '/' + base_link
+		else:
+			relative_root_url = '/'.join(self.url.url.split('/')[:-1])
+		
 		links = soup.find_all('a')
 
-		'''Todo:'''
+		'''Todo: handle abstract-path, relative-path and javascript'''
 		for link in links:
 			sub_url = link.get('href')
-			if sub_url.startswith('http'):
+			if not sub_url:
+				continue
+			link_url = None
+			#Handling abstract path
+			if sub_url.startswith('http://'):
 				link_url = sub_url
+			#Handling relative path
 			elif not 'javascript' in sub_url:
-				#link_url = self.root_url+'/'+sub_url
 				if sub_url.startswith('/'):
 					link_url = self.root_url+sub_url
 				elif self.url.depth == 0:
 					link_url = self.root_url+'/'+sub_url
 				else:
-					link_url = '/'.join(self.url.url.split('/')[:-1])+'/'+sub_url
+					link_url = relative_root_url + '/' + sub_url
+			#Handling Javascript
 			else:
 				re_url = re.compile('href=\"([\s\S]*.html)\"')
-				sub_url = re_url.findall(sub_url)[0]
-				link_url = self.root_url+'/'+sub_url
-			url_queue.append(Url(link_url,self.url.depth+1))
+				try:
+					sub_url = re_url.findall(sub_url)[0]
+					link_url = self.root_url+'/'+sub_url
+				except:
+					pass
+
+			if link_url:
+				url_queue.append(Url(link_url,self.url.depth+1))
+
 		return url_queue
 

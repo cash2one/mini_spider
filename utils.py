@@ -61,7 +61,11 @@ def check_config(args):
 
 	'''Check output dir'''
 	if not os.path.isdir(output_dir):
-		raise IOError("Output directory : %s should be a directory, please check!"%(output_dir))
+		if not os.path.exists(output_dir):
+			os.mkdir(output_dir)
+			config['output_dir'] = output_dir
+		else:
+			raise IOError("Output directory : %s should be a directory, please check!"%(output_dir))
 	else:
 		config['output_dir'] = output_dir
 
@@ -127,7 +131,7 @@ def url_to_filename(url):
 	Returns:
 		filaname : filepath to save html page
 	"""
-	filname = url.replace('%', '%25')
+	filename = url.replace('%', '%25')
 	filename = filename.replace('/','%2F')
 	filename = filename.replace('+', '%2B')
 	filename = filename.replace('?', '%3F')

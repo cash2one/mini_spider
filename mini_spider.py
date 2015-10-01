@@ -14,6 +14,8 @@ import re
 from objects import Url, HtmlParser
 from utils import check_config, convert_charset, url_to_filename
 
+VERSION=1.0
+
 url_queue = Queue.Queue()	#queue of urls that waitting to be crawled 
 exist_url_set = set()		#set of urls which are crawled
 failed_url_set = set()		#set of urls which are get failed
@@ -66,8 +68,8 @@ class SpiderThread(threading.Thread):
 			try:
 				"""Doing job"""
 				logging.info("Thread %s getting job url from work_queue"%(self.idx))
-				logging.debug("Thread:%s, queue_size:%s"%(self.idx,url_queue.qsize()))
-				url = self._queue.get(block=True, timeout=10)
+				#logging.debug("Thread:%s, queue_size:%s"%(self.idx,url_queue.qsize()))
+				url = self._queue.get(block=True, timeout=5)
 
 				"""Crawl page from website"""
 				spider = Spider(url, self.configs)
@@ -77,8 +79,8 @@ class SpiderThread(threading.Thread):
 				self._queue.task_done()
 
 			except Exception,e:
-				sleep_time = 5
-				logging.info("Thread %s get job failed, retry times left: %s, sleep %s seconds and retry.\n%s"%(self.idx, retry, sleep_time, e))
+				sleep_time = 3
+				logging.info("Thread %s get job failed, retry times left: %s, sleep %s seconds and retry."%(self.idx, retry, sleep_time))
 				retry -= 1
 				time.sleep(sleep_time)
 
@@ -110,6 +112,12 @@ class Spider(object):
 			save_pattern = re.compile(self.configs['target_url'])
 			if save_pattern.findall(self.url.url):
 				self.save_page()
+
+			crawl_interval = self.configs['crawl_interval']
+			logging.debug('Spider sleep...>>>')
+			time.sleep(crawl_interval)
+			logging.debug('Spider sleep done...>>>')
+
 		except Exception, e:
 			logging.error("Getting page failed, url:%s\n%s"%(self.url.url,e))
 		#self.clean_up()
@@ -129,7 +137,7 @@ class Spider(object):
 			logging.info("Get url:%s success."%(self.url.url))
 		except Exception, e:
 			global failed_url_set
-			logging.error(">>>>Get url%s failed. Put it into failed_url_set")
+			logging.error(">>>>Get url:%s failed. Put it into failed_url_set"%(self.url.url))
 			failed_url_set.add(self.url)
 			logging.error(">>>>Failed_Set size:%s"%(len(failed_url_set)))
 			raise Exception(e)
@@ -151,7 +159,7 @@ class Spider(object):
 				if not url in exist_url_set and not url in failed_url_set:
 					if url.depth <= self.configs['max_depth']:
 						url_queue.put(url,block=False)
-			logging.debug("queue_size:%s"%(url_queue.qsize()))
+			#logging.debug("queue_size:%s"%(url_queue.qsize()))
 		except Exception,e:
 			raise Exception("Parse_page failed.\nError info:%s"%(e))
 		
@@ -163,7 +171,7 @@ class Spider(object):
 			logging.info("Match traget_url, saving page of url:%s"%(self.url.url))
 			save_path = self.configs['output_dir']
 			save_filename = url_to_filename(self.url.url)
-			save_filepath= os.path.join(save_path,save_filename)
+			save_filepath = os.path.join(save_path,save_filename)
 			with open(save_filepath,'w') as fin:
 				fin.write(self.page)
 
@@ -201,11 +209,16 @@ def main(args):
 
 if __name__=="__main__":
 	"""Logging config"""
-	logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(funcName)s %(lineno)d %(message)s')
-	#logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(funcName)s %(lineno)d %(message)s',filename='./log.mini-spider',filemode='w')
+	#logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(funcName)s %(lineno)d %(message)s')
+	logging.basicConfig(level=logging.DEBUG,format='%(asctime)s %(levelname)s %(funcName)s %(lineno)d %(message)s',filename='./log.mini-spider',filemode='w')
 
 	parser = argparse.ArgumentParser(description=__doc__, 
 				formatter_class=RawTextHelpFormatter)
-	parser.add_argument('-c','--config', help="Config file url for mini-spider")
+
+	_help = 'Show version of mini-spider'
+	parser.add_argument('-v', '--version', action = "version", help = _help, version = 'Version:%s'%(VERSION))
+	_help = "Config file url for mini-spider"
+	parser.add_argument('-c','--config', help=_help)
+
 	args = parser.parse_args()
 	main(args)

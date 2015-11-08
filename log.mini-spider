@@ -1,0 +1,89 @@
+2015-10-26 12:59:21,145 INFO mini_spider 216 Mini-spider process Begin!
+2015-10-26 12:59:21,145 INFO run 80 Thread 0 getting job url from work_queue
+2015-10-26 12:59:21,150 INFO run 80 Thread 1 getting job url from work_queue
+2015-10-26 12:59:21,150 INFO run 80 Thread 2 getting job url from work_queue
+2015-10-26 12:59:21,150 INFO run 80 Thread 3 getting job url from work_queue
+2015-10-26 12:59:21,151 INFO run 80 Thread 4 getting job url from work_queue
+2015-10-26 12:59:21,151 INFO run 80 Thread 5 getting job url from work_queue
+2015-10-26 12:59:21,152 INFO run 80 Thread 6 getting job url from work_queue
+2015-10-26 12:59:21,152 INFO run 80 Thread 7 getting job url from work_queue
+2015-10-26 12:59:21,280 INFO get_page 152 Get url:http://pycm.baidu.com:8081 success.
+2015-10-26 12:59:21,281 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081
+2015-10-26 12:59:21,363 INFO get_page 152 Get url:http://pycm.baidu.com:8081/page2.html success.
+2015-10-26 12:59:21,364 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/page2.html
+2015-10-26 12:59:21,365 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/page2.html
+2015-10-26 12:59:21,367 ERROR get_page 157 >>>>Get url:http://pycm.baidu.com:8081/page4.html failed. Put it into failed_url_set
+2015-10-26 12:59:21,368 ERROR do_all_jobs 138 Getting page failed, url:http://pycm.baidu.com:8081/page4.html
+HTTP Error 404: Not Found
+2015-10-26 12:59:21,368 INFO get_page 152 Get url:http://pycm.baidu.com:8081/page1.html success.
+2015-10-26 12:59:21,371 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/page1.html
+2015-10-26 12:59:21,371 INFO get_page 152 Get url:http://pycm.baidu.com:8081/mirror/index.html success.
+2015-10-26 12:59:21,375 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/page1.html
+2015-10-26 12:59:21,376 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/mirror/index.html
+2015-10-26 12:59:21,384 INFO get_page 152 Get url:http://pycm.baidu.com:8081/page3.html success.
+2015-10-26 12:59:21,385 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/mirror/index.html
+2015-10-26 12:59:21,387 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/page3.html
+2015-10-26 12:59:21,388 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/page3.html
+2015-10-26 12:59:21,462 INFO get_page 152 Get url:http://pycm.baidu.com:8081/2/index.html success.
+2015-10-26 12:59:21,463 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/2/index.html
+2015-10-26 12:59:21,464 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/2/index.html
+2015-10-26 12:59:21,464 INFO get_page 152 Get url:http://pycm.baidu.com:8081/page2_1.html success.
+2015-10-26 12:59:21,465 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/page2_1.html
+2015-10-26 12:59:21,465 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/page2_1.html
+2015-10-26 12:59:23,286 INFO run 80 Thread 0 getting job url from work_queue
+2015-10-26 12:59:23,363 ERROR get_page 157 >>>>Get url:http://pycm.baidu.com:8081/1/page1_4.html failed. Put it into failed_url_set
+2015-10-26 12:59:23,363 ERROR do_all_jobs 138 Getting page failed, url:http://pycm.baidu.com:8081/1/page1_4.html
+HTTP Error 404: Not Found
+2015-10-26 12:59:23,367 INFO run 80 Thread 5 getting job url from work_queue
+2015-10-26 12:59:23,368 INFO run 80 Thread 2 getting job url from work_queue
+2015-10-26 12:59:23,388 INFO run 80 Thread 4 getting job url from work_queue
+2015-10-26 12:59:23,388 INFO run 80 Thread 3 getting job url from work_queue
+2015-10-26 12:59:23,389 INFO run 80 Thread 1 getting job url from work_queue
+2015-10-26 12:59:23,443 INFO get_page 152 Get url:http://pycm.baidu.com:8081/1/page1_1.html success.
+2015-10-26 12:59:23,444 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/1/page1_1.html
+2015-10-26 12:59:23,444 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/1/page1_1.html
+2015-10-26 12:59:23,445 INFO get_page 152 Get url:http://pycm.baidu.com:8081/1/page1_2.html success.
+2015-10-26 12:59:23,446 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/1/page1_2.html
+2015-10-26 12:59:23,446 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/1/page1_2.html
+2015-10-26 12:59:23,464 ERROR get_page 157 >>>>Get url:http://pycm.baidu.com:8081/1/page1_3.html failed. Put it into failed_url_set
+2015-10-26 12:59:23,464 ERROR do_all_jobs 138 Getting page failed, url:http://pycm.baidu.com:8081/1/page1_3.html
+HTTP Error 404: Not Found
+2015-10-26 12:59:23,465 INFO run 80 Thread 7 getting job url from work_queue
+2015-10-26 12:59:23,466 INFO run 80 Thread 6 getting job url from work_queue
+2015-10-26 12:59:23,468 INFO get_page 152 Get url:http://pycm.baidu.com:8081/mirror/page1.html success.
+2015-10-26 12:59:23,468 INFO get_page 152 Get url:http://pycm.baidu.com:8081/mirror/page2.html success.
+2015-10-26 12:59:23,471 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/mirror/page2.html
+2015-10-26 12:59:23,472 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/mirror/page1.html
+2015-10-26 12:59:23,472 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/mirror/page2.html
+2015-10-26 12:59:23,472 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/mirror/page1.html
+2015-10-26 12:59:23,543 INFO get_page 152 Get url:http://pycm.baidu.com:8081/mirror/page3.html success.
+2015-10-26 12:59:23,546 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/mirror/page3.html
+2015-10-26 12:59:23,546 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/mirror/page3.html
+2015-10-26 12:59:23,547 INFO get_page 152 Get url:http://pycm.baidu.com:8081/mirror/mirror/index.html success.
+2015-10-26 12:59:23,548 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/mirror/mirror/index.html
+2015-10-26 12:59:23,548 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/mirror/mirror/index.html
+2015-10-26 12:59:25,368 INFO run 80 Thread 0 getting job url from work_queue
+2015-10-26 12:59:25,445 INFO get_page 152 Get url:http://pycm.baidu.com:8081/3/page3_1.html success.
+2015-10-26 12:59:25,446 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/3/page3_1.html
+2015-10-26 12:59:25,447 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/3/page3_1.html
+2015-10-26 12:59:25,448 INFO run 80 Thread 5 getting job url from work_queue
+2015-10-26 12:59:25,449 INFO run 80 Thread 2 getting job url from work_queue
+2015-10-26 12:59:25,469 INFO run 80 Thread 4 getting job url from work_queue
+2015-10-26 12:59:25,477 INFO run 80 Thread 1 getting job url from work_queue
+2015-10-26 12:59:25,478 INFO run 80 Thread 3 getting job url from work_queue
+2015-10-26 12:59:25,524 INFO get_page 152 Get url:http://pycm.baidu.com:8081/3/page3_4.html success.
+2015-10-26 12:59:25,525 INFO parse_page 169 Parse page of url:http://pycm.baidu.com:8081/3/page3_4.html
+2015-10-26 12:59:25,526 INFO save_page 184 Match target_url, saving page of url:http://pycm.baidu.com:8081/3/page3_4.html
+2015-10-26 12:59:25,548 INFO run 80 Thread 7 getting job url from work_queue
+2015-10-26 12:59:25,549 INFO run 80 Thread 6 getting job url from work_queue
+2015-10-26 12:59:27,452 INFO run 80 Thread 0 getting job url from work_queue
+2015-10-26 12:59:27,527 INFO run 80 Thread 5 getting job url from work_queue
+2015-10-26 12:59:50,455 INFO run 94 Spider thread 2 finished with queue empty.
+2015-10-26 12:59:50,474 INFO run 94 Spider thread 4 finished with queue empty.
+2015-10-26 12:59:50,479 INFO run 94 Spider thread 3 finished with queue empty.
+2015-10-26 12:59:50,479 INFO run 94 Spider thread 1 finished with queue empty.
+2015-10-26 12:59:50,553 INFO run 94 Spider thread 7 finished with queue empty.
+2015-10-26 12:59:50,553 INFO run 94 Spider thread 6 finished with queue empty.
+2015-10-26 12:59:52,457 INFO run 94 Spider thread 0 finished with queue empty.
+2015-10-26 12:59:52,528 INFO run 94 Spider thread 5 finished with queue empty.
+2015-10-26 12:59:52,528 INFO mini_spider 221 Mini-spider process Done!
